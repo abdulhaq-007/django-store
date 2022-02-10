@@ -1,0 +1,7 @@
+{% extends "../wrapper.html" %}
+{% block content %}
+    <center><h1 class="bg-red">You have logged out!!!</h1></center>
+			<h2>Please log in again!</h2>	<br>
+			<a href="{% url 'account:login' %}"><button class="btn btn-dark btn-md btn-block">Login Again</button></a>
+{% endblock content %}
+		
