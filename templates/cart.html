@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section" style="background: #eee">
+    <br>
+    <br>
+    <!-- container -->
+    <div class="container">
+       
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card user-cart mt-3 p-3 w-100" style="overflow: auto;">
+
+                    {% if cart.products.all.count != 0 %}
+
+                    <div class="card-title">
+                        <h3 style="float: left">Cart Items</h3>
+                        <a href="{% url 'cart:removeAllItems' %}" class="btn btn-success" style="float: right">
+                            Clear Cart
+                        </a>
+                    </div>
+                    
+
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>Tovar rasmi</th>
+                                <th>Narxi</th>
+                                <th>Miqdori</th>
+                                <th>Jami Narxi</th>
+                                <th>Harakat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for product in cart.products.all %} {% with product as item %}
+                            <tr>
+                                <td>
+                                    <img src="{{ item.product.image.url}}" width="50" height="auto" alt="No img">
+                                </td>
+                                <td>
+                                    <strong>${{ item.product.price }}</strong>
+                                </td>
+                                <td>
+                                    <b>{{ item.quantity }}</b>
+                                </td>
+                                <td>
+                                    <b>${{ item.price }}</b>
+                                </td>
+                                <td>
+                                    <a href="{% url 'cart:delete' item.product.id item.quantity  %}" class="h3">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endwith %} {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    <h4>Cart total : ${{ cart.total_price }}</h4>
+                    <h4>Cart Items : {{ cart.total_quantity }}</h4>
+                    <a class="btn w-50 btn-dark text-light" href="checkout/">Checkout</a>
+                    {% else %}
+                            <h3 class="text-center">Siz hali hech narsa olganingiz yoq !</h2>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+<!--================End Cart Area =================-->
+{% endblock %}

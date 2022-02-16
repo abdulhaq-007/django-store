@@ -10,4 +10,5 @@ class OrderForm(forms.ModelForm):
         exclude = ('payed','user', 'products')
         widgets = {
         'messages':forms.Textarea(attrs={'rows':30,'cols':8}),
+        'phone': forms.TextInput(attrs={'pattern': r'[0-9]{2}-[0-9]{3}-[0-9]{4}'})
         }

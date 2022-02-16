@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+  {% block content %}
+      <div class="container mt-5">
+        
+        <div class="row">
+
+            <div class="col-md-5">
+                <div class="image-content-hidden">
+                    <img src="{{ object.image.url }}" class="w-100 hoverabel-animation" alt="">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h3 class="title">{{ object.name }}</h3>
+                <p>{{ object.description }}</p>
+                <div class="add-content form-group">
+                    <input type="number" class="form-control" style="width: 300px;" placeholder="Miqdori">
+                    <button class="btn btn-success mt-3" onclick="AddToCartQty( {{ object.id }}, this.parentElement.children[0].value )">Cart ga qoshish</button>
+                </div>
+            </div>
+
+        </div>
+        
+
+      </div>
+      <br>
+      <br>
+
+      <script>
+          function AddToCartQty(product_id, qty){
+              console.log(qty, product_id)
+  qty = parseInt(qty)
+  let d = {
+      product_id:product_id,
+      qty:qty,
+  }
+  let data = JSON.stringify(d)
+  if (window.XMLHttpRequest) {
+    var xhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+      var xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xhttp.onreadystatechange = function() {
+  if (xhttp.readyState === 4 && xhttp.status === 200) {
+      var data = JSON.parse(this.responseText);
+      console.log(data['success']);
+      if (data['success'] == 200) {
+          alert('Muvaffaqiyatli qoshildi')
+      }
+      else {
+          alert('Hatolik yuz berdi')
+      }
+  }else{
+
+    }
+  }
+  var url = "/cart/add/qty/"
+  xhttp.open("GET", url+`?data=${data}`, true);
+  xhttp.send();
+}
+      </script>
+
+{% endblock %}

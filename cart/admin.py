@@ -13,7 +13,7 @@ class CartProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
 	list_display = ['first_name','id']
 	list_display_links = ['first_name' ]
-	list_filter = ['payed','state','payment_method']
+	list_filter = ['payed']
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
